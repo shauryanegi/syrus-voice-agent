@@ -2,6 +2,8 @@
 
 Syrus is a concise, voice-first assistant built with LiveKit Agents and Google's Gemini realtime model. It uses the Aoede voice, accepts camera video for visual questions, and keeps a lightly witty, supportive persona.
 
+LiveKit provides the real-time room and runs the Python agent. It carries microphone and camera media between the user and Syrus; Gemini handles the voice conversation. This repository has no Node.js frontend or mobile app.
+
 ## Capabilities
 
 - Web search through DDGS for research and current information. DDGS selects its search backend automatically.
@@ -11,23 +13,31 @@ Syrus is a concise, voice-first assistant built with LiveKit Agents and Google's
 
 Syrus does not control a browser, open links, or take actions on websites.
 
+## Prerequisites
+
+- Python 3.12 and [`uv`](https://docs.astral.sh/uv/getting-started/installation/).
+- The [LiveKit CLI](https://docs.livekit.io/agents/start/voice-ai/#livekit-cli) and a LiveKit Cloud project.
+- A Google Gemini API key for the configured realtime model.
+
+Node.js and VS Code are optional; this project is a Python agent without a JavaScript frontend. Agent Observability is also optional for the basic voice, camera, and tool demo, so you can leave it disabled when creating a LiveKit project.
+
 ## Setup
 
-Install the LiveKit CLI and `uv`. Python 3.12 is used by the workshop, Docker image, and CI checks:
+From the repository directory, install the locked dependencies with Python 3.12, which is used by the workshop, Docker image, and CI checks:
 
 ```console
 uv python install 3.12
 uv sync --python 3.12 --locked --dev
 ```
 
-Copy `.env.example` to `.env.local` and provide your LiveKit project credentials and Google Gemini API key. The Google plugin reads `GOOGLE_API_KEY` from the environment.
+Sign in to LiveKit Cloud and write the selected project's credentials to `.env.local`:
 
 ```console
 lk cloud auth
 lk app env --write --destination .env.local
 ```
 
-Add `GOOGLE_API_KEY` to `.env.local` as well. Keep `.env.local` private; it is ignored by Git and Docker.
+Add your `GOOGLE_API_KEY` to `.env.local`. The Google plugin reads it from the environment. Keep `.env.local` private; it is ignored by Git and Docker. The blank `.env.example` lists the required variable names.
 
 The configured model is `gemini-3.1-flash-live-preview`, with the Aoede voice and `en-GB` language. Gemini handles turn detection and interruptions. The optional ai-coustics enhancer is currently disabled while isolating a native startup crash. Session audio recording is disabled to avoid a reported recorder/Gemini resampler race; transcripts, logs, and traces remain enabled. Input and output transcription are enabled by the Google plugin's defaults, but realtime-model transcripts can arrive after the spoken response. Review preview-model availability before running the demo or changing models.
 
@@ -38,6 +48,8 @@ Start the local development agent:
 ```console
 lk agent dev
 ```
+
+Open the console URL printed by the command, start a session, and allow microphone and camera access when prompted.
 
 For a production worker:
 
