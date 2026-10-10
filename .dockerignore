@@ -1,0 +1,28 @@
+# Runtime image only needs the locked project and application source.
+.git/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Local credentials and developer-only files.
+.env
+.env.*
+tests/
+scenarios.yaml
+README.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+skills-lock.json
+.agents/
+.codex/
+.claude/
+.github/
+
+# Workshop material and private presenter notes are not runtime inputs.
+presentations/
+technical-notes/
+.codex-build/
