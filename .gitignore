@@ -1,0 +1,43 @@
+.env
+.env.*
+!.env.example
+
+# Private presenter scripts, technical notes, and presentation build files
+presentations/INTERNAL_*.md
+technical-notes/
+.codex-build/
+.DS_Store
+__pycache__
+.idea
+KMS
+.venv
+.vscode
+*.egg-info
+.pytest_cache
+.ruff_cache
+
+# Claude Code
+.claude/settings.local.json
+.claude/worktrees/
+.claude/skills/
+
+# OpenAI Codex
+.codex/
+.agents/
+AGENTS.md
+CODEX.md
+skills-lock.json
+
+# Gemini CLI
+.gemini/history/
+.gemini/tmp/
+.gemini/google_accounts.json
+.gemini/installation_id
+.gemini/oauth_creds.json
+
+# Cursor
+.cursor/chat/
+.cursor/rules/*.local.mdc
+
+# GitHub CLI
+.github/personal-instructions.md
