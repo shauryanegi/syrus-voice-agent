@@ -20,6 +20,15 @@ def test_assistant_registers_only_supported_callable_tools():
     ]
 
 
+def test_agent_prompt_instructs_requested_language_switch():
+    from pathlib import Path
+
+    source = Path(__file__).parents[1].joinpath("src", "agent.py").read_text()
+
+    assert "If the user asks for a specific language, switch to it immediately" in source
+    assert "For Hindi, use natural Hindi" in source
+
+
 def mock_httpx(monkeypatch: pytest.MonkeyPatch, handler) -> None:
     async_client = httpx.AsyncClient
 
